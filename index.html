@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Оферта за Google Merchant Center и Google Ads Shopping — House of Color</title>
+<meta name="description" content="Технически преглед, план за автоматизиран продуктов фийд и стратегия за Google Shopping реклами за House of Color.">
+<meta property="og:title" content="Оферта за изготвяне на Google Merchant Center и Google Ads Shopping Infrastructure">
+<meta property="og:description" content="Подготвено за House of Color от Борислав Томов — технически одит, продуктов фийд, Google инфраструктура и стратегия за Shopping реклами.">
+<meta property="og:type" content="website">
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{
+    --ink:#1e2126;
+    --ink-soft:#4b545a;
+    --paper:#eef1f2;
+    --surface:#ffffff;
+    --surface-2:#e4e8e9;
+    --line:#d3dadb;
+    --accent:#1b6169;
+    --accent-ink:#ffffff;
+    --accent-soft:#dcebec;
+    --accent2:#c96a2e;
+    --accent2-soft:#f6e3d3;
+    --good:#2f7a4f;
+    --warn:#b5842a;
+    --shadow: 0 1px 2px rgba(20,30,32,.06), 0 8px 24px -12px rgba(20,30,32,.18);
+    --radius: 14px;
+    --font-display: 'Golos Text', 'PT Sans', system-ui, sans-serif;
+    --font-body: 'PT Sans', 'Golos Text', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#e9edee;
+      --ink-soft:#a9b4b7;
+      --paper:#14181a;
+      --surface:#1b2023;
+      --surface-2:#232a2d;
+      --line:#333c3f;
+      --accent:#5cc2c9;
+      --accent-ink:#0c1516;
+      --accent-soft:#1d3236;
+      --accent2:#e79a5e;
+      --accent2-soft:#3a2a1c;
+      --good:#6fbf8f;
+      --warn:#e0b45c;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e9edee;
+    --ink-soft:#a9b4b7;
+    --paper:#14181a;
+    --surface:#1b2023;
+    --surface-2:#232a2d;
+    --line:#333c3f;
+    --accent:#5cc2c9;
+    --accent-ink:#0c1516;
+    --accent-soft:#1d3236;
+    --accent2:#e79a5e;
+    --accent2-soft:#3a2a1c;
+    --good:#6fbf8f;
+    --warn:#e0b45c;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.6);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:var(--font-display);
+    text-wrap:balance;
+    color:var(--ink);
+    line-height:1.15;
+    margin:0;
+  }
+  p{margin:0 0 1em; max-width:66ch;}
+  ul,ol{margin:0 0 1em; padding-left:1.2em;}
+  li{margin-bottom:.4em;}
+  a{color:var(--accent);}
+  .mono{font-family:var(--font-mono);}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    letter-spacing:.11em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:.5em;
+  }
+  .eyebrow::before{
+    content:"";
+    width:18px;height:3px;border-radius:2px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    display:inline-block;
+  }
+
+  .shell{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 clamp(18px,4vw,48px) 80px;
+    display:grid;
+    grid-template-columns:220px minmax(0,1fr);
+    gap:56px;
+    align-items:start;
+  }
+  @media (max-width:880px){
+    .shell{grid-template-columns:1fr;}
+  }
+
+  /* ---------- NAV ---------- */
+  nav.toc{
+    position:sticky;
+    top:24px;
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    padding:18px 0;
+  }
+  nav.toc .label{
+    font-family:var(--font-mono);
+    font-size:.68rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+  nav.toc a{
+    text-decoration:none;
+    color:var(--ink-soft);
+    font-size:.88rem;
+    padding:7px 10px;
+    border-radius:8px;
+    border-left:2px solid transparent;
+  }
+  nav.toc a:hover{background:var(--surface-2); color:var(--ink);}
+  nav.toc a.active{
+    color:var(--accent);
+    border-left-color:var(--accent);
+    background:var(--accent-soft);
+    font-weight:600;
+  }
+  @media (max-width:880px){
+    nav.toc{
+      position:static;
+      flex-direction:row;
+      overflow-x:auto;
+      gap:6px;
+      padding:14px 0;
+      border-bottom:1px solid var(--line);
+      margin-bottom:8px;
+    }
+    nav.toc .label{display:none;}
+    nav.toc a{white-space:nowrap; border-left:none; border-bottom:2px solid transparent;}
+    nav.toc a.active{border-left-color:transparent; border-bottom-color:var(--accent);}
+  }
+
+  main{min-width:0; padding-top:18px;}
+  section{padding:52px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+
+  /* ---------- COVER ---------- */
+  .cover{padding-top:8px;}
+  .cover .kicker{
+    font-family:var(--font-mono);
+    font-size:.8rem;
+    color:var(--ink-soft);
+    letter-spacing:.04em;
+    margin-bottom:18px;
+  }
+  .cover h1{
+    font-size:clamp(2rem,4.4vw,3.1rem);
+    font-weight:700;
+    max-width:16ch;
+  }
+  .paint-rule{
+    height:5px;border-radius:3px;margin:22px 0 26px;
+    width:180px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+  }
+  .cover .sub{font-size:1.08rem; color:var(--ink-soft); max-width:56ch;}
+  .cover-meta{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:14px;
+    margin-top:34px;
+    max-width:640px;
+  }
+  .cover-meta div{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:12px 14px;
+  }
+  .cover-meta .k{font-family:var(--font-mono); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:4px;}
+  .cover-meta .v{font-weight:600; font-size:.94rem;}
+
+  /* ---------- STAT TILES ---------- */
+  .stat-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:14px;
+    margin:28px 0 8px;
+  }
+  .stat{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:18px 18px 16px;
+    box-shadow:var(--shadow);
+  }
+  .stat .num{
+    font-family:var(--font-mono);
+    font-weight:600;
+    font-size:1.9rem;
+    color:var(--accent);
+    font-variant-numeric:tabular-nums;
+    display:block;
+    margin-bottom:6px;
+  }
+  .stat .cap{font-size:.85rem; color:var(--ink-soft); max-width:none;}
+
+  /* ---------- CALLOUT ---------- */
+  .callout{
+    background:var(--accent2-soft);
+    border:1px solid color-mix(in srgb, var(--accent2) 35%, var(--line));
+    border-radius:var(--radius);
+    padding:22px 24px;
+    margin:24px 0;
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+  }
+  .callout .icon{
+    flex:none;
+    width:34px;height:34px;border-radius:9px;
+    background:var(--accent2);
+    color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-mono); font-weight:700; font-size:.95rem;
+  }
+  .callout p{margin:0; max-width:none;}
+  .callout .lede{font-weight:700; margin-bottom:4px; display:block;}
+
+  /* ---------- CARDS / GRID ---------- */
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media (max-width:640px){.grid-2{grid-template-columns:1fr;}}
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:20px 22px;
+  }
+  .card h4{font-size:1rem; margin-bottom:8px;}
+  .card p{font-size:.92rem; color:var(--ink-soft); margin-bottom:0;}
+
+  /* ---------- TABLES ---------- */
+  .table-wrap{overflow-x:auto; margin:20px 0; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:.92rem; min-width:560px;}
+  thead th{
+    text-align:left;
+    font-family:var(--font-mono);
+    font-size:.7rem;
+    letter-spacing:.07em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    padding:14px 16px;
+    border-bottom:1px solid var(--line);
+    background:var(--surface-2);
+  }
+  tbody td{
+    padding:15px 16px;
+    border-bottom:1px solid var(--line);
+    vertical-align:top;
+  }
+  tbody tr:last-child td{border-bottom:none;}
+  td.price{font-family:var(--font-mono); font-weight:600; white-space:nowrap; color:var(--accent);}
+  td ul{margin:0; padding-left:1.1em;}
+  td ul li{margin-bottom:.25em; font-size:.9rem;}
+
+  /* ---------- COMPETITOR TABLE STATUS ---------- */
+  .tag{
+    display:inline-flex; align-items:center; gap:5px;
+    font-family:var(--font-mono); font-size:.72rem; font-weight:600;
+    padding:3px 9px; border-radius:99px;
+  }
+  .tag.gap{background:var(--accent-soft); color:var(--accent);}
+  .tag.mid{background:var(--accent2-soft); color:var(--accent2);}
+  .tag.none{background:var(--surface-2); color:var(--ink-soft);}
+
+  /* ---------- TIMELINE ---------- */
+  .timeline{position:relative; margin:26px 0 10px; padding-left:28px;}
+  .timeline::before{
+    content:"";
+    position:absolute; left:8px; top:6px; bottom:6px;
+    width:2px; background:var(--line);
+  }
+  .tl-item{position:relative; padding-bottom:28px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:"";
+    position:absolute; left:-28px; top:3px;
+    width:14px; height:14px; border-radius:50%;
+    background:var(--surface); border:3px solid var(--accent);
+  }
+  .tl-item.milestone::before{background:var(--accent2); border-color:var(--accent2);}
+  .tl-date{font-family:var(--font-mono); font-size:.74rem; color:var(--ink-soft); letter-spacing:.03em; margin-bottom:3px;}
+  .tl-title{font-weight:700; margin-bottom:4px;}
+  .tl-body{font-size:.92rem; color:var(--ink-soft); max-width:60ch;}
+
+  /* ---------- CHECKLIST ---------- */
+  .checklist{list-style:none; padding:0; margin:22px 0;}
+  .checklist li{
+    display:flex; gap:12px; align-items:flex-start;
+    padding:13px 0; border-bottom:1px solid var(--line);
+  }
+  .checklist li:last-child{border-bottom:none;}
+  .checklist .num{
+    flex:none; width:26px;height:26px;border-radius:50%;
+    background:var(--surface-2); color:var(--ink-soft);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-mono); font-size:.75rem; font-weight:700;
+    margin-top:1px;
+  }
+  .checklist strong{display:block; margin-bottom:2px;}
+  .checklist span.detail{font-size:.88rem; color:var(--ink-soft);}
+  .checklist li.done .num{background:var(--good); color:#fff;}
+  .checklist .status{
+    flex:none; font-family:var(--font-mono); font-size:.68rem; font-weight:700;
+    letter-spacing:.05em; text-transform:uppercase; padding:3px 9px; border-radius:99px;
+    margin-left:auto; align-self:flex-start; margin-top:2px; white-space:nowrap;
+  }
+  .checklist li.done .status{background:var(--accent-soft); color:var(--good);}
+  .checklist li:not(.done) .status{background:var(--surface-2); color:var(--ink-soft);}
+  .checklist li{gap:12px;}
+  .checklist li > div{flex:1;}
+
+  /* ---------- PRICING SUMMARY ---------- */
+  .price-hero{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:16px; margin:26px 0 34px;
+  }
+  .price-tile{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; box-shadow:var(--shadow);
+  }
+  .price-tile.hi{background:var(--accent); color:var(--accent-ink); border-color:var(--accent);}
+  .price-tile .lbl{font-family:var(--font-mono); font-size:.7rem; letter-spacing:.07em; text-transform:uppercase; opacity:.8; margin-bottom:8px;}
+  .price-tile .amt{font-family:var(--font-mono); font-weight:700; font-size:1.7rem; font-variant-numeric:tabular-nums;}
+  .price-tile .note{font-size:.82rem; margin-top:6px; opacity:.85;}
+
+  footer.fine{
+    padding:36px 0 0;
+    font-size:.8rem;
+    color:var(--ink-soft);
+  }
+  footer.fine a{color:var(--ink-soft); text-decoration:underline;}
+  .sig{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px;
+    margin-top:30px; padding-top:26px; border-top:1px solid var(--line);
+  }
+  .sig .who .name{font-weight:700; font-size:1.05rem;}
+  .sig .who .role{color:var(--ink-soft); font-size:.9rem;}
+  .cta{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--accent); color:var(--accent-ink);
+    padding:12px 20px; border-radius:99px; font-weight:700; text-decoration:none;
+    font-size:.95rem;
+  }
+</style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@500;600;700;900&family=PT+Sans:wght@400;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+</head>
+<body>
+<div class="shell">
+  <nav class="toc" id="toc">
+    <div class="label">Съдържание</div>
+    <a href="#start" data-t="start">Начало</a>
+    <a href="#why-now" data-t="why-now">Защо сега</a>
+    <a href="#audit" data-t="audit">Одит на магазина</a>
+    <a href="#feed" data-t="feed">Продуктов фийд</a>
+    <a href="#market" data-t="market">Пазар и конкуренти</a>
+    <a href="#scope" data-t="scope">Обхват на работа</a>
+    <a href="#timeline" data-t="timeline">График</a>
+    <a href="#pricing" data-t="pricing">Инвестиция</a>
+    <a href="#needs" data-t="needs">От вас ни трябва</a>
+    <a href="#next" data-t="next">Следваща стъпка</a>
+  </nav>
+
+  <main>
+
+    <section class="cover" id="start">
+      <div class="kicker">ТЪРГОВСКА ОФЕРТА · 4 СЕПТЕМВРИ 2026</div>
+      <h1>Google Merchant Center &amp; Performance&nbsp;Max за House of Color</h1>
+      <div class="paint-rule"></div>
+      <p class="sub">Преглед на houseofcolor-shop.com през администрацията на Shopiko, реална оценка на възможностите за автоматизиран продуктов фийд, изграждане на Google инфраструктура и стратегия за пускане на Shopping реклами — в подготвителния период, докато Google Merchant Center е в тестов режим за България.</p>
+
+      <div class="cover-meta">
+        <div><div class="k">Подготвено за</div><div class="v">House of Color</div></div>
+        <div><div class="k">Уебсайт</div><div class="v">houseofcolor-shop.com</div></div>
+        <div><div class="k">Подготвено от</div><div class="v">Борислав Томов</div></div>
+        <div><div class="k">Валидност</div><div class="v">30 дни</div></div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat"><span class="num">3 886</span><span class="cap">активни продукта в каталога на Shopiko — електроинструменти, абразиви, авточасти, боя и лакове</span></div>
+        <div class="stat"><span class="num">2</span><span class="cap">активни GA4 тага на сайта, плюс инсталиран (но неконфигуриран) плъгин за Google динамичен ремаркетинг</span></div>
+        <div class="stat"><span class="num">Бета</span><span class="cap">Merchant Center вече е избираем за България — Google все още не е обявил дата за пълен старт на Shopping</span></div>
+        <div class="stat"><span class="num">0</span><span class="cap">от проверените конкуренти с потвърден, готов за подаване Google Shopping фийд</span></div>
+      </div>
+    </section>
+
+    <section id="why-now">
+      <div class="eyebrow">Защо точно сега</div>
+      <h2 style="font-size:1.7rem; margin:14px 0 16px;">България е в предварителния период</h2>
+      <p>Google Merchant Center вече е достъпен за България — може да се избере като държава на акаунта, а продуктови обяви вече се тестват. Google не е обявил официална дата за пълен старт на Google Shopping в страната, така че всичко по-долу трябва да се чете като разумна подготовка, не като краен срок с точна дата.</p>
+
+      <div class="callout">
+        <div class="icon">i</div>
+        <div>
+          <span class="lede">Логиката на подготовката</span>
+          <p>Точно защото каналът е в тестов режим, българските бизнеси, които подготвят фийда, тракинга и акаунтите си сега, ще са готови да пуснат кампания в деня, в който продуктовите търсения заработят напълно в България — вместо да започват одита чак тогава. Одобрението на фийд в Merchant Center обичайно отнема няколко работни дни, така че подготовката винаги е добра идея, независимо от точната дата.</p>
+        </div>
+      </div>
+
+      <p>Ако графикът съвпадне с сезона на Черния петък и коледните покупки — толкова по-добре, но не разчитаме на това като гаранция, а като възможен бонус. Графикът по-долу е разчетен така, че да сте технически готови в рамките на около 4 седмици от старта на работата, независимо кога точно Google обяви пълния старт.</p>
+    </section>
+
+    <section id="audit">
+      <div class="eyebrow">Технически преглед</div>
+      <h2 style="font-size:1.7rem; margin:14px 0 16px;">Какво открихме в администрацията на Shopiko</h2>
+      <p>С достъпа, който вече ни предоставихте, минахме директно през админ панела на houseofcolor-shop.com — каталога, добавките (add-ons), настройките и инструментите за импорт/експорт — вместо да гадаем по публичния сайт. Ето реалната картина:</p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h4>Платформа и фийд механизми</h4>
+          <p>Магазинът е на <strong>Shopiko</strong> (платформата на SuperHosting.bg). Няма вграден конектор за Google Merchant Center, но има вградена добавка за Google Ads динамичен ремаркетинг, която генерира собствен CSV фийд по категории, плюс отделен инструмент за импорт на продукти по файл или чрез URL адрес на външен фийд. Тези механизми не покриват изцяло изискванията на Merchant Center, но са добра отправна точка за фийд моста, който трябва да построим.</p>
+        </div>
+        <div class="card">
+          <h4>Каталог</h4>
+          <p>Реалният брой активни продукти в системата е <strong>3 886</strong> — значително повече от първоначалната ни ориентировъчна оценка. Всеки продукт има име, кратко и подробно описание, цена/старa цена, категория, SKU, марка, тип, вариации и характеристики, но <strong>няма отделно поле за GTIN/баркод</strong> — това е важен детайл за начина, по който ще подадем идентификаторите в Merchant Center.</p>
+        </div>
+        <div class="card">
+          <h4>Проследяване (tracking)</h4>
+          <p>На живо засичаме <strong>2 активни GA4 тага</strong> (различни measurement ID) на сайта. В админ панела е инсталирана добавката за Google динамичен ремаркетинг и е активна, но полето за Google Ads Conversion ID в нея е празно — тоест плъгинът е сложен, но не изпраща реални конверсионни данни към Google Ads в момента. Има и активен Facebook Pixel. Не открихме Google Tag Manager контейнер, нито schema.org маркиране на продуктите.</p>
+        </div>
+        <div class="card">
+          <h4>Собственост на бранда</h4>
+          <p>При прегледа установихме, че <strong>Esklips 99 ЕООД</strong> е свързана компания на House of Color (един и същ собственик/фирмена група, виждащо се от футъра на сайта и социалните мрежи), а не отделен конкурент — коригирахме пазарния анализ по-долу спрямо това.</p>
+        </div>
+      </div>
+
+      <div class="callout" style="background:var(--accent-soft); border-color:color-mix(in srgb, var(--accent) 35%, var(--line));">
+        <div class="icon" style="background:var(--accent);">i</div>
+        <div>
+          <span class="lede">Извод</span>
+          <p>Правните страници и структурата на каталога са добра основа. Има частично измерване (2 GA4 тага), но липсват работещи Google Ads конверсии, GTM и готов Merchant Center фийд — именно тази технологична работа покрива офертата. По-долу отговаряме конкретно на въпроса дали и как може да се направи автоматизиран фийд с този CMS.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="feed">
+      <div class="eyebrow">Продуктов фийд</div>
+      <h2 style="font-size:1.7rem; margin:14px 0 16px;">Може ли Shopiko да захранва Google Merchant Center — и как</h2>
+      <p>Честният отговор: <strong>да, изпълнимо е</strong>, но Shopiko няма готов „едно копче" конектор към Google Merchant Center — трябва мост между вградените му инструменти за експорт/фийд и изискванията на Google. Ето двата реалистични пътя, подредени по това как ги виждаме за House of Color:</p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h4>Път А — фийд мост (препоръчан за контрол)</h4>
+          <p>Взимаме съществуващия CSV експорт/фийд на Shopiko като суров източник, трансформираме го в изисквания от Google формат (заглавия, категории по Google Product Taxonomy, GTIN заместители чрез <span class="mono" style="font-size:.85em;">identifier_exists=false</span>, наличности), качваме го на автоматизиран URL адрес и настройваме Merchant Center да го извлича по график. <strong>Препоръчана честота: дневно</strong> — синхронизира цени и наличности достатъчно бързо за магазин с 3 886 продукта, без да натоварва системата.</p>
+        </div>
+        <div class="card">
+          <h4>Път Б — no-code фийд инструмент (най-бързо за нетехнически собственик)</h4>
+          <p>Инструмент като DataFeedWatch или Channable се включва към експорта на Shopiko, автоматично мапва полетата към Google формата и поддържа фийда актуален без нужда от custom код. По-бързо за пускане и по-лесно за поддръжка от ваша страна занапред, но носи отделен месечен абонамент (обичайно €25–€60/месец, за сметка на House of Color).</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="icon">!</div>
+        <div>
+          <span class="lede">Липсващият GTIN не е пречка</span>
+          <p>Тъй като продуктите нямат заведен баркод/GTIN в Shopiko, ще подадем фийда с <span class="mono" style="font-size:.85em;">identifier_exists=false</span> — Google го приема официално за марки/продукти без стандартни идентификатори. Ако в бъдеще искате пълна GTIN покритост (по-добро индексиране за брандирани продукти като Mirka/Festool), е отделна, по-бавна задача по попълване на данни в самия каталог.</p>
+        </div>
+      </div>
+
+      <p>И двата пътя тръгват от едно и също техническо решение — Path A/Б е избор между „ние поддържаме и контролираме моста" срещу „по-бърз старт с готов инструмент и абонамент отгоре". Нямаме предпочитание, което да наложим предварително — искаме реалната ви преценка за скорост срещу бюджет, преди да фиксираме кой път влиза в пакет А.</p>
+    </section>
+
+    <section id="market">
+      <div class="eyebrow">Пазарна картина</div>
+      <h2 style="font-size:1.7rem; margin:14px 0 16px;">Конкурентите са по-напред в тракинга, но никой не е готов с Shopping фийд</h2>
+      <p>Проверихме конкурентите на живо — не по видим код, а чрез засичане на реалните мрежови заявки, които сайтовете им пускат (GA4, Google Ads конверсии, GTM, Facebook Pixel), плюс проверка какво реално се вижда в Google търсенето за България в момента.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Магазин</th><th>Ниша</th><th>Платформа</th><th>Google готовност</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Detailing Bulgaria</strong><br><span class="mono" style="font-size:.8rem;color:var(--ink-soft)">detailingbg.com</span></td>
+              <td>Авточистене, 470+ продукта (GYEON, CarPro, Meguiar&#39;s)</td>
+              <td>WordPress / WooCommerce</td>
+              <td><span class="tag mid">2 активни Google Ads конверсии + GA4 + FB Pixel</span></td>
+            </tr>
+            <tr>
+              <td><strong>KM Tools</strong><br><span class="mono" style="font-size:.8rem;color:var(--ink-soft)">kmtools.net</span></td>
+              <td>Електроинструменти и градинска техника (Makita, DeWalt, Festool)</td>
+              <td>Собствена платформа</td>
+              <td><span class="tag mid">Активна Google Ads конверсия + GA4 + FB SDK</span></td>
+            </tr>
+            <tr>
+              <td><strong>OnlineMashini.bg</strong></td>
+              <td>Електроинструменти, широк каталог</td>
+              <td>Собствена платформа</td>
+              <td><span class="tag mid">Активна Google Ads конверсия + Bing UET + Clarity</span></td>
+            </tr>
+            <tr>
+              <td><strong>DetailingStore.bg</strong></td>
+              <td>Полиращи пасти, авточистене</td>
+              <td>Остарял OpenCart</td>
+              <td><span class="tag gap">Без тракинг, мигрира към нов домейн</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="font-size:.88rem;color:var(--ink-soft)">Забележка: Esklips 99 (сестринска марка на House of Color, вижте прегледа по-горе) не е включена като конкурент.</p>
+
+      <p>Честната картина: трима от четиримата проверени играчи вече имат <strong>активни, работещи Google Ads кампании с конверсийно проследяване</strong> — тук House of Color изостава, не води. Добрата новина е друга — при директна проверка в Google търсенето за България (към момента на прегледа) все още няма отделен таб „Пазаруване" и нито един от тези конкуренти не показва признаци на готов, подаден Google Shopping фийд; продуктови данни се появяват спорадично в обикновените резултати (цена в сниппета, галерия с продавач) при част от играчите като eMAG и по-големите обекти, но не системно през Merchant Center. С други думи — конкуренцията е на крачка пред вас в тракинга, но каналът Shopping е отворен за всички едновременно, когато Google го включи напълно.</p>
+    </section>
+
+    <section id="scope">
+      <div class="eyebrow">Обхват на работата</div>
+      <h2 style="font-size:1.7rem; margin:14px 0 16px;">Пет работни пакета + месечно управление</h2>
+      <p>Разбихме работата на ясни, самостоятелно ценообразувани пакети, за да виждате точно за какво плащате. Пакети A и B са техническата основа и трябва да тръгнат първи; C и D могат да текат паралелно; E затваря със стартирането на кампанията.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th style="width:20%">Пакет</th><th>Какво включва</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>A. Фийд &amp; Merchant Center</strong></td>
+              <td><ul>
+                <li>Пълен експорт и анализ на каталога от Shopiko</li>
+                <li>Изграждане на автоматизиран мост фийд → Google (с автоматично обновяване на цени/наличности)</li>
+                <li>Регистрация и верификация на Google Merchant Center акаунт</li>
+                <li>Категоризация по Google Product Taxonomy, GTIN/идентификатори, оптимизирани заглавия</li>
+                <li>Диагностика и отстраняване на грешки/предупреждения при одобрение</li>
+              </ul></td>
+            </tr>
+            <tr>
+              <td><strong>B. Google инфраструктура</strong></td>
+              <td><ul>
+                <li>Инсталиране на Google Tag Manager в Shopiko</li>
+                <li>Нов GA4 property + разширени ecommerce събития (или одит, ако вече съществува)</li>
+                <li>Конверсийно проследяване за Google Ads</li>
+                <li>Проверка/прехвърляне на собствеността в Search Console</li>
+                <li>Свързване на GA4 ↔ Google Ads ↔ Merchant Center</li>
+              </ul></td>
+            </tr>
+            <tr>
+              <td><strong>C. Ключови думи &amp; именна конвенция</strong></td>
+              <td><ul>
+                <li>Проучване на ключови думи по всяка основна категория (машини, абразиви, боя/лак, ръчни инструменти, авточистене)</li>
+                <li>Групиране по search intent (информационни vs. купувачки заявки)</li>
+                <li>Насоки за именуване на продукти и категории във фийда за максимална видимост в Shopping</li>
+                <li>Речник от препоръчани термини на български за заглавия и описания</li>
+              </ul></td>
+            </tr>
+            <tr>
+              <td><strong>D. Пазарно &amp; конкурентно проучване (360°)</strong></td>
+              <td><ul>
+                <li>Разширена карта на преките и косвените конкуренти в България</li>
+                <li>Ценово бенчмаркиране по ключови продуктови групи</li>
+                <li>Мониторинг на активни Google/Meta реклами на конкурентите (Google Ads Transparency Center, Meta Ad Library)</li>
+                <li>Оценка на дигиталната им зрялост и прогноза за конкуренцията в аукциона</li>
+              </ul></td>
+            </tr>
+            <tr>
+              <td><strong>E. Performance Max старт</strong></td>
+              <td><ul>
+                <li>Архитектура на кампанията (asset groups, listing groups, сегментация по категория/марж)</li>
+                <li>Творчески активи — текстове, заглавия, аудитории</li>
+                <li>Настройка на бюджет и цели спрямо конверсийни данни</li>
+                <li>Стартиране, наблюдение в първите 14 дни и първа оптимизация</li>
+              </ul></td>
+            </tr>
+            <tr>
+              <td><strong>F. Месечно управление</strong> <span style="font-weight:400;color:var(--ink-soft)">(текущо)</span></td>
+              <td><ul>
+                <li>Седмична оптимизация на кампанията и фийда</li>
+                <li>Актуализация при нови продукти/сезонни промоции</li>
+                <li>Месечен отчет с резултати и препоръки</li>
+              </ul></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <div class="eyebrow">График</div>
+      <h2 style="font-size:1.7rem; margin:14px 0 16px;">4 седмици до технически готов профил</h2>
+      <p>Датите по-долу тръгват от старта на работата, не от обявена от Google дата. Целта е след около 4 седмици House of Color да е технически готов и одобрен в Merchant Center — независимо кога точно Google обяви пълния старт на Shopping в България.</p>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-date">Седмица 1 · 8–14 септември</div>
+          <div class="tl-title">Достъп и одит</div>
+          <div class="tl-body">Административен достъп до Shopiko и Google акаунтите, пълен експорт на каталога, потвърждаване на финалния обхват и цена.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Седмица 2 · 15–21 септември</div>
+          <div class="tl-title">Изграждане на фийда и инфраструктурата</div>
+          <div class="tl-body">Фийд мост към Google, регистрация на Merchant Center, GTM/GA4/конверсии, свързване на акаунтите.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Седмица 3 · 22–28 септември</div>
+          <div class="tl-title">Съдържание и проучване</div>
+          <div class="tl-body">Ключови думи и именна конвенция, оптимизация на заглавия/категории във фийда, финализиране на конкурентния анализ.</div>
+        </div>
+        <div class="tl-item milestone">
+          <div class="tl-date">Седмица 4 · 29 септ – 5 октомври</div>
+          <div class="tl-title">Диагностика и одобрение</div>
+          <div class="tl-body">Подаване на фийда за преглед от Google (буфер 3–5 работни дни), изграждане на структурата на Performance Max кампанията.</div>
+        </div>
+        <div class="tl-item milestone">
+          <div class="tl-date">Веднага след одобрението</div>
+          <div class="tl-title">Пускане на Performance Max кампанията</div>
+          <div class="tl-body">Стартираме с активен продуктов фийд и наблюдение в реално време — независимо дали това съвпада с обявения от Google пълен старт за България.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Ноември – декември 2026 (ако графикът съвпадне)</div>
+          <div class="tl-title">Черен петък / коледен сезон</div>
+          <div class="tl-body">Ако сме готови преди сезона — оптимизация на база първите реални данни и скалиране на бюджета за пиковия период. Не е гарантирано, че двата графика ще съвпаднат напълно.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="eyebrow">Инвестиция</div>
+      <h2 style="font-size:1.7rem; margin:14px 0 16px;">Прозрачно ценообразуване по пакети</h2>
+      <p>Цените по-долу са първоначалният ориентир и остават непроменени за момента — с реалния каталог от <strong>3 886 продукта</strong> (доста над първоначалната ни оценка от 400–600), ще прегледаме пакет А заедно и ще коригираме офертата, преди да започнем каквато и да е платена работа. Нищо от изложеното по-долу не е финално.</p>
+
+      <div class="price-hero">
+        <div class="price-tile hi">
+          <div class="lbl">Пълен пакет за старта (A–E)</div>
+          <div class="amt">от €1 890</div>
+          <div class="note">вместо €2 100–€2 990 поотделно</div>
+        </div>
+        <div class="price-tile">
+          <div class="lbl">Месечно управление</div>
+          <div class="amt">€450–€750</div>
+          <div class="note">без рекламен бюджет</div>
+        </div>
+        <div class="price-tile">
+          <div class="lbl">Препоръчан рекламен бюджет</div>
+          <div class="amt">€600–€1 000</div>
+          <div class="note">на месец, първите 60 дни</div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Пакет</th><th>Ориентировъчна цена</th><th>Забележка</th></tr></thead>
+          <tbody>
+            <tr><td>A. Фийд &amp; Merchant Center</td><td class="price">€480 – €780</td><td>Еднократно</td></tr>
+            <tr><td>B. Google инфраструктура</td><td class="price">€320 – €480</td><td>Еднократно</td></tr>
+            <tr><td>C. Ключови думи &amp; именна конвенция</td><td class="price">€380 – €560</td><td>Еднократно</td></tr>
+            <tr><td>D. Пазарно и конкурентно проучване</td><td class="price">€340 – €520</td><td>Еднократно</td></tr>
+            <tr><td>E. Performance Max старт</td><td class="price">€420 – €650</td><td>Еднократно</td></tr>
+            <tr><td>F. Месечно управление</td><td class="price">€450 – €750 / мес.</td><td>Текущо, след старта</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:.85rem;color:var(--ink-soft)">Ако се наложи платен инструмент за автоматизация на фийда (напр. при много чести промени в наличностите), абонаментът му (обичайно €25–€60/месец) е за сметка на House of Color и се съгласува предварително.</p>
+    </section>
+
+    <section id="needs">
+      <div class="eyebrow">От вас ни трябва</div>
+      <h2 style="font-size:1.7rem; margin:14px 0 16px;">Достъп и информация, за да тръгнем</h2>
+      <ol class="checklist">
+        <li class="done"><span class="num">✓</span><div><strong>Административен достъп до Shopiko</strong><span class="detail">Вече ни предоставихте достъп — прегледът в тази оферта е направен през него.</span></div><span class="status">Осигурено</span></li>
+        <li><span class="num">2</span><div><strong>Данни за юридическото лице</strong><span class="detail">ЕИК, адрес и данни за банкова верификация — нужни за създаване/верификация на Google Merchant Center.</span></div><span class="status">Очаква се</span></li>
+        <li><span class="num">3</span><div><strong>Достъп до Google Ads</strong><span class="detail">Съществуващ акаунт (покана като администратор) или потвърждение, че създаваме нов от ваше име.</span></div><span class="status">Очаква се</span></li>
+        <li><span class="num">4</span><div><strong>Достъп до Google Analytics</strong><span class="detail">Открихме 2 активни GA4 тага на сайта — нужна е покана като администратор до съществуващия property, за да ги наследим вместо да създаваме дублиращ нов.</span></div><span class="status">Очаква се</span></li>
+        <li><span class="num">5</span><div><strong>Собственост в Google Search Console</strong><span class="detail">Открихме съществуваща верификация на сайта — моля потвърдете кой има достъп до нея в момента.</span></div><span class="status">Очаква се</span></li>
+        <li><span class="num">6</span><div><strong>Достъп до Meta Business Manager</strong><span class="detail">Открихме активен Facebook pixel — полезно е да видим текущите настройки за пълна картина.</span></div><span class="status">Очаква се</span></li>
+        <li><span class="num">7</span><div><strong>Потвърждение за пътя на фийда (А или Б)</strong><span class="detail">Вижте секция „Продуктов фийд" по-горе — трябва ни вашата преценка между custom мост и no-code инструмент, за да фиксираме обхвата на пакет А.</span></div><span class="status">Очаква се</span></li>
+        <li><span class="num">8</span><div><strong>Лого във висока резолюция</strong><span class="detail">За визуализация на магазина в Merchant Center и в самите обяви.</span></div><span class="status">Очаква се</span></li>
+        <li><span class="num">9</span><div><strong>Ориентировъчен рекламен бюджет</strong><span class="detail">За да планираме реалистична структура на Performance Max кампанията.</span></div><span class="status">Очаква се</span></li>
+      </ol>
+    </section>
+
+    <section id="next" style="border-bottom:none;">
+      <div class="eyebrow">Следваща стъпка</div>
+      <h2 style="font-size:1.7rem; margin:14px 0 16px;">Готови сме да тръгнем тази седмица</h2>
+      <p>Потвърдете офертата и достъпа по т. 2–3 от списъка по-горе (т. 1 вече е налична) — останалото подготвяме паралелно с одита. Няма фиксирана дата, срещу която да „надбягваме" стартa, но колкото по-рано тръгнем, толкова по-спокойно ще сме готови, каквото и да реши Google за пълния старт в България — а ако сезонът на Черния петък съвпадне, ще сме там навреме.</p>
+
+      <div class="sig">
+        <div class="who">
+          <div class="name">Борислав Томов</div>
+          <div class="role">Performance Marketing &amp; Product</div>
+        </div>
+        <a class="cta" href="mailto:borislavt13@gmail.com?subject=%D0%9F%D0%BE%D1%82%D0%B2%D1%8A%D1%80%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D1%84%D0%B5%D1%80%D1%82%D0%B0%D1%82%D0%B0%20%E2%80%94%20House%20of%20Color&amp;body=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D0%B5%D0%B9%D1%82%D0%B5%20%D0%91%D0%BE%D1%80%D0%B8%D1%81%D0%BB%D0%B0%D0%B2%2C%0A%0A%D0%91%D0%BB%D0%B0%D0%B3%D0%BE%D0%B4%D0%B0%D1%80%D1%8F%20%D0%B7%D0%B0%20%D0%BF%D0%BE%D0%B4%D0%B3%D0%BE%D1%82%D0%B2%D0%B5%D0%BD%D0%B0%D1%82%D0%B0%20%D0%BE%D1%84%D0%B5%D1%80%D1%82%D0%B0%20%E2%80%94%20%D1%81%D1%8A%D0%B3%D0%BB%D0%B0%D1%81%D0%BD%D0%B8%20%D1%81%D0%BC%D0%B5%20%D1%81%20%D0%BF%D0%BE%D1%81%D0%BE%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%B5%D0%BA%D1%88%D1%8A%D0%BD%20%D0%BF%D0%BB%D0%B0%D0%BD%20%D0%B8%20%D1%82%D0%B0%D0%B9%D0%BC%D0%BB%D0%B0%D0%B9%D0%BD%2C%20%D0%BA%D0%B0%D0%BA%D1%82%D0%BE%20%D0%B8%20%D1%81%20%D1%84%D0%B8%D0%BD%D0%B0%D0%BD%D1%81%D0%BE%D0%B2%D0%B8%D1%82%D0%B5%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%B8%20%D0%B7%D0%B0%20%D0%BF%D1%8A%D0%BB%D0%BD%D0%B8%D1%8F%20%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%20(%D0%90%E2%80%93%D0%95).%0A%0A%D0%9E%D1%87%D0%B0%D0%BA%D0%B2%D0%B0%D0%BC%D0%B5%20%D1%81%D0%BB%D0%B5%D0%B4%D0%B2%D0%B0%D1%89%D0%B8%D1%82%D0%B5%20%D1%81%D1%82%D1%8A%D0%BF%D0%BA%D0%B8.%0A%0A%D0%9F%D0%BE%D0%B7%D0%B4%D1%80%D0%B0%D0%B2%D0%B8%2C">Потвърждавам — да започваме →</a>
+      </div>
+    </section>
+
+    <footer class="fine">
+      <p>Констатациите за платформата и тракинга в раздел „Технически преглед" и „Продуктов фийд" се базират на директен преглед на администрацията на Shopiko на 4 септември 2026&nbsp;г., направен с предоставения ни достъп. Конкурентният анализ съчетава преглед на живо на мрежовите заявки на посочените сайтове с проверка на резултатите в Google търсене за България към същата дата. Google все още не е обявил официална дата за пълен старт на Google Shopping в България — Merchant Center е достъпен в тестов режим. Всички цени са ориентировъчни и се финализират след финалното потвърждение на обхвата.</p>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('#toc a'));
+  var sections = links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });
+  function onScroll(){
+    var pos = window.scrollY + 140;
+    var current = sections[0];
+    for (var i=0;i<sections.length;i++){
+      if (sections[i] && sections[i].offsetTop <= pos) current = sections[i];
+    }
+    links.forEach(function(a){
+      a.classList.toggle('active', current && a.getAttribute('href') === '#'+current.id);
+    });
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+})();
+</script>
+</body>
+</html>
